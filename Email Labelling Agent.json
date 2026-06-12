@@ -1,0 +1,559 @@
+{
+  "name": "Email Labelling Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        -144
+      ],
+      "id": "b685506d-7352-4fc5-b7a4-2d728eaa48ea",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "A7bt3mTpdLuEAuf7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.text }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Advetisements",
+              "description": "Classify an email as \"Advertisements\" if it:  \nPromotes a product, service, subscription, or event  \nContains marketing language such as offers, discounts, deals, limited-time promotions  \nEncourages purchasing, upgrading, subscribing, or registering for commercial purposes \nIs a sales outreach, promotional campaign, or sponsored content  \n\nExamples:  \nDiscount announcements  \nSaaS upgrade promotions  \nCorporate sales offers  \nProduct launches  \nE-commerce marketing emails"
+            },
+            {
+              "category": "Education",
+              "description": "Classify an email as \"Education\" if it:\nIs related to academic institutions, universities, or schools\nMentions enrollment, courses, certifications, exams, or training programs\nContains learning materials, class schedules, academic notifications, or student portals\nIs from an educational platform or training provider\n\nExamples:\nCourse enrollment confirmations\nSemester notifications\nCertification program announcements\nTraining reminders"
+            },
+            {
+              "category": "Login Alerts",
+              "description": "Classify an email as \"Login Alerts\" if it:\nNotifies about account login activity\nMentions password changes or security updates\nContains suspicious login alerts or device/location login information\nRequests password reset or security verification\nIs clearly related to account security monitoring\n\nExamples:\nNew login detected\nPassword updated confirmation\nSecurity warning\nAccount verification alerts"
+            },
+            {
+              "category": "Others",
+              "description": "Classify an email as \"Others\" if it:\nIs general business communication\nContains meeting invitations or project discussions\nIncludes internal team communication\nIs not promotional, educational, or security-related\nDoes not strongly match any of the above categories\n\nExamples:\nMeeting confirmations\nInternal updates\nProfessional correspondence\nProject discussions"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "Return ONLY one of the following exact labels:\nAdvertisements\nEducation\nLogin Alerts\nOthers\nDo not include explanations.\nDo not add extra text.\nDo not return multiple labels.\nChoose the single most appropriate category.\nIf the email contains overlapping themes, classify based on its primary intent."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -272,
+        -176
+      ],
+      "id": "ee94d558-d763-4f8c-88e0-3c33fe68c8a7",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_3644573875469426228"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        -416
+      ],
+      "id": "cedc5fad-3ead-44c9-900a-1039ace609a6",
+      "name": "Advertisements",
+      "webhookId": "4cda08a1-97e3-45b0-9d1f-49e4705dce17",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "A7bt3mTpdLuEAuf7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_8409385622788599220"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        -240
+      ],
+      "id": "0601732d-d3cd-48bb-99cf-d8a59f5d3289",
+      "name": "Education",
+      "webhookId": "4cda08a1-97e3-45b0-9d1f-49e4705dce17",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "A7bt3mTpdLuEAuf7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_5259702474360757019"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        -64
+      ],
+      "id": "8bd819a1-89a4-4cac-a1b1-d0a9cfaa01ba",
+      "name": "Login Alerts",
+      "webhookId": "4cda08a1-97e3-45b0-9d1f-49e4705dce17",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "A7bt3mTpdLuEAuf7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_4093794326796946551"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        128
+      ],
+      "id": "1015b6f0-a506-4fa0-aff1-939976413bbf",
+      "name": "Others",
+      "webhookId": "4cda08a1-97e3-45b0-9d1f-49e4705dce17",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        640,
+        -192
+      ],
+      "id": "9e265a46-65bd-47af-9b4e-7e99048b2ba8",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        112
+      ],
+      "id": "7179a575-9758-4d49-a9f5-8f3d059dc25e",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ksFaNBtcOkLpBOxC5ySyIVMJ2FryEXOCfVhBSxFeIqQ",
+          "mode": "list",
+          "cachedResultName": "Email Tracking",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ksFaNBtcOkLpBOxC5ySyIVMJ2FryEXOCfVhBSxFeIqQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ksFaNBtcOkLpBOxC5ySyIVMJ2FryEXOCfVhBSxFeIqQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email From": "={{ $('Gmail Trigger').item.json.from.value[0].address }}",
+            "Sender Name": "={{ $('Gmail Trigger').item.json.from.value[0].name }}",
+            "Subject": "={{ $('Gmail Trigger').item.json.subject }}",
+            "Date": "={{ $('Gmail Trigger').item.json.headers.date }}",
+            "Category": "={{ $json.Category }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Email From",
+              "displayName": "Email From",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sender Name",
+              "displayName": "Sender Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        832,
+        -160
+      ],
+      "id": "4bb79764-11f3-4ec7-bd58-9d6222c0b254",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e23a6bde-79bb-4256-9240-249b0582449a",
+              "name": "Category",
+              "value": "Advertisements",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        -416
+      ],
+      "id": "1fcbfaac-6264-44f5-8107-e5cdb6f065fc",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aecd5153-5482-4582-ab36-9c387ac1ed6f",
+              "name": "Category",
+              "value": "Education",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        -240
+      ],
+      "id": "ff908c12-1b10-4159-8aae-6e4a9b7221b4",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "83d01dfe-9b5f-4e0e-b8cc-95b336ba4ca7",
+              "name": "Category",
+              "value": "Login Alerts",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        -64
+      ],
+      "id": "b30d53e7-3131-4161-b5c5-ba98558ebc7e",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c9bd954-d1df-45a5-91f0-dd43ffed4954",
+              "name": "Category",
+              "value": "Others",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        128
+      ],
+      "id": "fb2ec11d-e449-4b56-aeb0-b36f0cf24757",
+      "name": "Edit Fields3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Advertisements",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Education",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Login Alerts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Others",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Advertisements": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Education": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Alerts": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Others": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "dacf2fd5-2440-4120-bec8-f380ce3bdf50",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e7a7b1d6db6b025e5834708a355c251e835fadff155d76b4c1faa24aa81c76f6"
+  },
+  "id": "msWlnZV1Of8ubX2sEXXon",
+  "tags": [
+    {
+      "updatedAt": "2025-12-26T11:14:56.673Z",
+      "createdAt": "2025-12-26T11:14:56.673Z",
+      "id": "7C2hVaxVIjj6o8ZP",
+      "name": "operations"
+    }
+  ]
+}

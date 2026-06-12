@@ -30,7 +30,7 @@
       "name": "Gmail Trigger",
       "credentials": {
         "gmailOAuth2": {
-          "id": "A7bt3mTpdLuEAuf7",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -55,7 +55,7 @@
       "webhookId": "d29a6107-976c-43ec-9dec-09ac2c778d55",
       "credentials": {
         "gmailOAuth2": {
-          "id": "A7bt3mTpdLuEAuf7",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -109,7 +109,7 @@
       "webhookId": "2302dac9-cff1-49e3-ae54-2d68f261037b",
       "credentials": {
         "gmailOAuth2": {
-          "id": "A7bt3mTpdLuEAuf7",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -148,7 +148,7 @@
       "webhookId": "e0b7cca4-c3a5-4de2-9096-c03049b1a5d1",
       "credentials": {
         "gmailOAuth2": {
-          "id": "A7bt3mTpdLuEAuf7",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -205,7 +205,7 @@
       "name": "Select rows from a table",
       "credentials": {
         "mySql": {
-          "id": "AcXKiY6hJUGYDXcE",
+          "id": "",
           "name": "MySQL account"
         }
       }
@@ -432,7 +432,7 @@
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "kSiu1twCNfGTNypP",
+          "id": "",
           "name": "Google Sheets account 2"
         }
       }
@@ -472,10 +472,10 @@
         400
       ],
       "id": "dae7bb38-2ac9-4c62-bfc8-b9edcabd81e6",
-      "name": "Groq Chat Model",
+      "name": "",
       "credentials": {
         "groqApi": {
-          "id": "kYTogxX25ue7gJy6",
+          "id": "",
           "name": "Groq account"
         }
       }
@@ -495,7 +495,7 @@
       "name": "Groq Chat Model1",
       "credentials": {
         "groqApi": {
-          "id": "kYTogxX25ue7gJy6",
+          "id": "",
           "name": "Groq account"
         }
       }
@@ -766,7 +766,7 @@
         "name": "Gmail Trigger",
         "credentials": {
           "gmailOAuth2": {
-            "id": "A7bt3mTpdLuEAuf7",
+            "id": "",
             "name": "Gmail account"
           }
         }
@@ -791,7 +791,7 @@
         "webhookId": "d29a6107-976c-43ec-9dec-09ac2c778d55",
         "credentials": {
           "gmailOAuth2": {
-            "id": "A7bt3mTpdLuEAuf7",
+            "id": "",
             "name": "Gmail account"
           }
         }
@@ -842,10 +842,10 @@
         ],
         "id": "64695cee-1c1a-464b-85b8-e2859b568238",
         "name": "Send a message in Gmail",
-        "webhookId": "2302dac9-cff1-49e3-ae54-2d68f261037b",
+        "webhookId": "",
         "credentials": {
           "gmailOAuth2": {
-            "id": "A7bt3mTpdLuEAuf7",
+            "id": "",
             "name": "Gmail account"
           }
         }
@@ -884,7 +884,7 @@
         "webhookId": "e0b7cca4-c3a5-4de2-9096-c03049b1a5d1",
         "credentials": {
           "gmailOAuth2": {
-            "id": "A7bt3mTpdLuEAuf7",
+            "id": "",
             "name": "Gmail account"
           }
         }
@@ -941,7 +941,7 @@
         "name": "Select rows from a table",
         "credentials": {
           "mySql": {
-            "id": "AcXKiY6hJUGYDXcE",
+            "id": "",
             "name": "MySQL account"
           }
         }
@@ -1168,7 +1168,7 @@
         "name": "Append row in sheet",
         "credentials": {
           "googleSheetsOAuth2Api": {
-            "id": "kSiu1twCNfGTNypP",
+            "id": "",
             "name": "Google Sheets account 2"
           }
         }
@@ -1211,7 +1211,7 @@
         "name": "Groq Chat Model",
         "credentials": {
           "groqApi": {
-            "id": "kYTogxX25ue7gJy6",
+            "id": "",
             "name": "Groq account"
           }
         }
@@ -1231,7 +1231,7 @@
         "name": "Groq Chat Model1",
         "credentials": {
           "groqApi": {
-            "id": "kYTogxX25ue7gJy6",
+            "id": "",
             "name": "Groq account"
           }
         }
@@ -1398,7 +1398,7 @@
         "workflowId": "9pDtHznn4Nw3JUKe",
         "versionId": "da6487e7-cffc-4b56-a2ae-8a36edac21b2",
         "event": "activated",
-        "userId": "c61f5284-f9dd-42c7-bfa4-4e9c70db12f9"
+        "userId": ""
       }
     ]
   },
